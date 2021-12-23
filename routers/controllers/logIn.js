@@ -1,29 +1,34 @@
-const jwt = require("jsonwebtoken");
-const  userModel  = require("../../db/models/userModel")
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const userModel = require("../../db/models/userModel");
 
 const login = async (req, res) => {
-    let { email, password } = req.body;
-    console.log(password,"password")
-  
-    try {
-      const user = await userModel.findOne({ email: email });
-      if (user) {
-        const see = await bcrypt.compare(password, user.password);
-        if (see === true) {
-          const payload = { userId: user._id, userName: user.name };
-          const token = jwt.sign(payload, "ABC");
-          res.status(200).json({ token , userId :user._id });
-          // res.status(200).json(`Hello admain! ${user.name}`);
-        } else {
-          res.status(403).json("wrong PassWord!");
-        }
+  let { email, password } = req.body;
+// اسينك للوق ان عشان ياخذ الايميل والباسوورد من البودي
+  try {
+    const user = await userModel.findOne({ email: email });
+    if (user) {
+        // ياخذ بيانات اليوزر ويوجد الايميل ويطابقه مع الايميل
+      const see = await bcrypt.compare(password, user.password);
+         //   يشوف الباسوور اذا كان صحيح يكمل اذا كان خطاء يطلع ايرور 403
+      if (see === true) {
+        const data = { userId: user._id, userName: user.name };
+        // يطلع التوكن حق اليوزر اي دي واليوزر نيم
+        const token = jwt.sign(data, "ABC");
+       // يسوي جنريت او توليد او انشاء للتوكن
+        res.status(200).json({ token });
+        // يرجع التوكن
       } else {
-        res.status(404).json("wrong email!");
+        res.status(403).json("wrong PassWord!");
       }
-    } catch (error) {
-        console.log("jajaja")
-      res.send(error);
+        //   اذا كان الباسوورد خطاء يطلع الايرور هذا
+    } else {
+      res.status(404).json("wrong Email!");
     }
-  };
-  module.exports = {login }
+       // اذا كان الايميل خطاء يطلع الايرور هذا
+  } catch (error) {
+    res.send(error);
+  }
+};
+
+module.exports = { login };
