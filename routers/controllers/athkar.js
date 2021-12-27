@@ -1,11 +1,23 @@
 const athkarModel = require("../../db/models/athkarModel")
 
 
+const getreedathkar = async (req, res) => {
+    const type = req.params.type
+    try {
+      const data = await athkarModel.find({type : type});
+      res.status(200).json(data);
+    }
+     catch (error) {
+      res.send(error);
+    }
+  };
+
+
 // ادد هي نفسها البوست
 const addathkar =  async (req , res)=>{
-        const {name , description } = req.body;
-        // سويت اسينك للادد عشان يجيب النيم والديسكربشن من البودي
-        const data = new athkarModel({name, description})
+        const {name , description ,type } = req.body;
+        // سويت اسينك للادد عشان يجيب النيم والديسكربشن والتايب من البودي
+        const data = new athkarModel({name, description, type})
         // جاب لي بيانات النيو ادد بناء على البيانات اللي بالسكيما
         try {
             const sav = await data.save()
@@ -58,4 +70,4 @@ const getathkar = async (req , res)=>{
         }
 
 
-    module.exports = {addathkar , deleteathkar  , getathkar , updateathkar }
+    module.exports = {addathkar , deleteathkar ,getreedathkar , getathkar , updateathkar }

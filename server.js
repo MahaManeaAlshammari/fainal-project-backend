@@ -6,10 +6,6 @@ const cors = require("cors");
 app.use(cors());
 
 
-// const athkarModel = require("./db/models/athkarModel");
-
-
-
 const signUpRoute = require("./routers/routes/signUpRoute");
 const loginRoute  = require("./routers/routes/loginRoute");
 const athkarRoute = require("./routers/routes/athkarRoute")
