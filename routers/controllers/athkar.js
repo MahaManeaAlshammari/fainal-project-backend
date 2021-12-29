@@ -3,16 +3,17 @@ const athkarModel = require("../../db/models/athkarModel")
 
 const getreedathkar = async (req, res) => {
     const type = req.params.type
+    // جبت الداتا من المونقو
     try {
       const data = await athkarModel.find({type : type});
       res.status(200).json(data);
+    //   عرفت كونست اسمه داتا واسندت له قيمه السكيما ويوجد التايب
     }
      catch (error) {
       res.send(error);
+    //   الكاتش عشان لو فيه ايرور 
     }
   };
-
-
 // ادد هي نفسها البوست
 const addathkar =  async (req , res)=>{
         const {name , description ,type } = req.body;
@@ -68,6 +69,7 @@ const getathkar = async (req , res)=>{
                 res.status(403).json(error)
             }
         }
+        
 
 
     module.exports = {addathkar , deleteathkar ,getreedathkar , getathkar , updateathkar }
