@@ -1,6 +1,5 @@
 const athkarModel = require("../../db/models/athkarModel")
 
-
 const getreedathkar = async (req, res) => {
     const type = req.params.type
     // جبت الداتا من المونقو
@@ -69,7 +68,53 @@ const getathkar = async (req , res)=>{
                 res.status(403).json(error)
             }
         }
+
+////////////////////////////////////// اللايك /////////////////////////////////////////////
+       
+          const addFavorite = async (req, res) => {
+            const id = req.params.id;
+            const userId = req.token.userId;
+            try {
+              const addFavorite = await userModel.findOneAndUpdate(
+                { _id: userId },
+                { $push: { favorite: id } },
+                { new: true }
+              );
+              console.log("mlknj");
+              res.status(201).json(addFavorite);
+            } catch (error) {
+              res.send(error);
+            }
+          };
+          const getFavorite = async (req, res) => {
+            const userId = req.token.userId;
+            try {
+              const favoriteTkr = await userModel.findOne({ _id: userId }).populate("favorite");
+              res.status(200).json(favoriteTkr.favorite);
+            } catch (error) {
+              res.send(error);
+            }
+          };
+          const deletfavorite = async (req, res) => {
+            const id = req.params.id;
+            const userId = req.token.userId;
+            // console.log(id );
+            // console.log(userId);
+            try {
+              const deletFavorite = await userModel.findOneAndUpdate(
+                { _id: userId },
+                { $pull: { favorite: id } },
+                { new: true }
+              );
+            //   console.log(unLike,"dellllll");
+              res.status(200).json(unLike);
+            //   console.log("dellllll");
+            } catch (error) {
+              res.send(error);
+            }
+          };
+          
+          
         
 
-
-    module.exports = {addathkar , deleteathkar ,getreedathkar , getathkar , updateathkar }
+    module.exports={addathkar, deleteathkar,getreedathkar,getathkar,updateathkar,getFavorite,addFavorite,deletfavorite}

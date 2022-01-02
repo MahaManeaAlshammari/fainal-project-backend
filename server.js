@@ -8,10 +8,13 @@ app.use(cors());
 
 const signUpRoute = require("./routers/routes/signUpRoute");
 const loginRoute  = require("./routers/routes/loginRoute");
-const athkarRoute = require("./routers/routes/athkarRoute")
+const athkarRoute = require("./routers/routes/athkarRoute");
+const qoranRoute = require("./routers/routes/qoranRoute")
+
 app.use(signUpRoute);
 app.use(loginRoute);
 app.use(athkarRoute);
+app.use(qoranRoute);
 
 
 

@@ -12,11 +12,11 @@ const login = async (req, res) => {
       const see = await bcrypt.compare(password, user.password);
          //   يشوف الباسوور اذا كان صحيح يكمل اذا كان خطاء يطلع ايرور 403
       if (see === true) {
-        const data = { userId: user._id, userName: user.name };
+        const data = { userId: user._id, userName: user.name, admin: user.admin };
         // يطلع التوكن حق اليوزر اي دي واليوزر نيم
         const token = jwt.sign(data, "ABC");
        // يسوي جنريت او توليد او انشاء للتوكن
-        res.status(200).json({ token });
+        res.status(200).json({ token ,data });
         // يرجع التوكن
       } else {
         res.status(403).json("wrong PassWord!");
