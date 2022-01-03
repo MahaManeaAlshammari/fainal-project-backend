@@ -15,8 +15,8 @@ athkarModel.put("/athkar",authentication, updateathkar)
 ////////
 athkarModel.get("/ReedAthkar/:type" ,authentication, getreedathkar);
 ///////
-athkarModel.get("/athkar/:id" ,authentication, getFavorite);
-athkarModel.post("/athkar/:id" ,authentication , addFavorite);
+athkarModel.get("/Favorite" ,authentication, getFavorite);
+athkarModel.post("/Favorite/:id" ,authentication , addFavorite);
 
 
 

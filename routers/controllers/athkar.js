@@ -1,5 +1,5 @@
 const athkarModel = require("../../db/models/athkarModel")
-
+const userModel = require("../../db/models/userModel")
 const getreedathkar = async (req, res) => {
     const type = req.params.type
     // جبت الداتا من المونقو
@@ -89,7 +89,7 @@ const getathkar = async (req , res)=>{
           const getFavorite = async (req, res) => {
             const userId = req.token.userId;
             try {
-              const favoriteTkr = await userModel.findOne({ _id: userId }).populate("favorite");
+              const favoriteTkr = await userModel.findOne({ _id: userId }).populate("Favorite");
               res.status(200).json(favoriteTkr.favorite);
             } catch (error) {
               res.send(error);
