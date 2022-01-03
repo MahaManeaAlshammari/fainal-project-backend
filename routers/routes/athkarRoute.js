@@ -2,7 +2,7 @@ const express = require("express");
 const athkarModel = express.Router();
 
 
-const {addathkar, deleteathkar, getathkar,getreedathkar, updateathkar,getFavorite,addFavorite } = require
+const {addathkar, deleteathkar, getathkar,getreedathkar, updateathkar,getFavorite,addFavorite,deletFavorite } = require
 ("../controllers/athkar")
 
 const {authentication} = require("../middlewares/authentication")
@@ -17,6 +17,8 @@ athkarModel.get("/ReedAthkar/:type" ,authentication, getreedathkar);
 ///////
 athkarModel.get("/Favorite" ,authentication, getFavorite);
 athkarModel.post("/Favorite/:id" ,authentication , addFavorite);
+athkarModel.delete("/Favorite/:id", authentication ,deletFavorite);
+
 
 
 

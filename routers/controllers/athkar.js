@@ -70,7 +70,6 @@ const getathkar = async (req , res)=>{
         }
 
 ////////////////////////////////////// اللايك /////////////////////////////////////////////
-       
           const addFavorite = async (req, res) => {
             const id = req.params.id;
             const userId = req.token.userId;
@@ -89,32 +88,26 @@ const getathkar = async (req , res)=>{
           const getFavorite = async (req, res) => {
             const userId = req.token.userId;
             try {
-              const favoriteTkr = await userModel.findOne({ _id: userId }).populate("Favorite");
+              const favoriteTkr = await userModel.findOne({ _id: userId }).populate("favorite");
               res.status(200).json(favoriteTkr.favorite);
             } catch (error) {
               res.send(error);
             }
           };
-          const deletfavorite = async (req, res) => {
+          const deletFavorite = async (req, res) => {
             const id = req.params.id;
             const userId = req.token.userId;
-            // console.log(id );
-            // console.log(userId);
             try {
               const deletFavorite = await userModel.findOneAndUpdate(
                 { _id: userId },
                 { $pull: { favorite: id } },
                 { new: true }
               );
-            //   console.log(unLike,"dellllll");
               res.status(200).json(unLike);
-            //   console.log("dellllll");
             } catch (error) {
               res.send(error);
             }
           };
-          
-          
         
 
-    module.exports={addathkar, deleteathkar,getreedathkar,getathkar,updateathkar,getFavorite,addFavorite,deletfavorite}
+    module.exports={addathkar, deleteathkar,getreedathkar,getathkar,updateathkar,getFavorite,addFavorite,deletFavorite}
