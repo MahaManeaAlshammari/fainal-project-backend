@@ -103,7 +103,8 @@ const getathkar = async (req , res)=>{
                 { $pull: { favorite: id } },
                 { new: true }
               );
-              res.status(200).json(unLike);
+              const favoriteTkr = await userModel.findOne({ _id: userId }).populate("favorite");
+              res.status(200).json(favoriteTkr.favorite);
             } catch (error) {
               res.send(error);
             }

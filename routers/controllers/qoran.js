@@ -13,7 +13,6 @@ const addqoran =  async (req , res)=>{
     }  
 }
 const getQoran = async (req, res) => {
-    const type = req.params.type
     // جبت الداتا من المونقو
     try {
       const data = await qoranModel.find({});
