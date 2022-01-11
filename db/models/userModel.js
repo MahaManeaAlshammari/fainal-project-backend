@@ -5,7 +5,7 @@ const userModel = new mongoose.Schema({
     email : { type : String  , unique : true },
     password : { type : String },
     favorite : [{type: mongoose.Schema.Types.ObjectId, ref: "athkarModel"}],
-    admin : {type :Boolean , default: false}
+    Admin : {type :Boolean , default: false}
 });
 
 module.exports = mongoose.model("userModel", userModel)
