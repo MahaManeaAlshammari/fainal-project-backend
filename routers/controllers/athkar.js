@@ -1,5 +1,7 @@
 const athkarModel = require("../../db/models/athkarModel")
 const userModel = require("../../db/models/userModel")
+
+
 const getreedathkar = async (req, res) => {
     const type = req.params.type
     // جبت الداتا من المونقو
