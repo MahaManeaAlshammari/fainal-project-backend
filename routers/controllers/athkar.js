@@ -23,6 +23,7 @@ const addathkar =  async (req , res)=>{
         // جاب لي بيانات النيو ادد بناء على البيانات اللي بالسكيما
         try {
             const sav = await data.save()
+            const thkr = await athkarModel.find({})
             // سويت سيف للداتا بعد ماجابه
             res.status(200).json(sav)
             // اذاكان صحيح يحفظه
@@ -35,18 +36,14 @@ const addathkar =  async (req , res)=>{
     // سويت كونسول عشان اتاكد اذا كان الكود شغال او لا
 
 const deleteathkar = async (req , res)=>{
-        let id = req.params.id
-        const userId = req.token.userId
-        
-        console.log(userId);
-     
-            try {
-                const deletej = await athkarModel.findOneAndDelete({_id:id,user:userId})
-                const cour = await athkarModel.find({}).populate("user")
-                res.status(200).json(cour)
-            } catch (error) {
-                res.status(403).json(error)
-            }  
+  const id = req.params.id;
+  try {
+    const del = await athkarModel.findOneAndDelete({ _id: id });
+    res.status(200).json(del);
+
+  } catch (err) {
+    res.send(err);
+  }
     }
 
 
@@ -60,15 +57,21 @@ const getathkar = async (req , res)=>{
     }
 
     const updateathkar = async (req , res) => {
-            const {idold , name , description } = req.body;
-            try {
-                let courUpdate = name && await athkarModel.findByIdAndUpdate({_id: idold} , {name})
-                 courUpdate = description && await athkarModel.findByIdAndUpdate({_id: idold} , {description})
-                const cours = await athkarModel.find({})
-                res.status(200).json(cours)
-            } catch (error) {
-                res.status(403).json(error)
-            }
+      const id = req.params.id;
+      console.log(id);
+      const{description}= req.body;
+      try {
+        const updateB = await athkarModel.findOneAndUpdate( {_id: id},
+       {description}, { new: true });
+
+       console.log(updateB);
+
+        res.status(201).json(updateB);
+      } catch (error) {
+        res.send({ message: error });
+
+      }
+
         }
 
 ////////////////////////////////////// اللايك /////////////////////////////////////////////
