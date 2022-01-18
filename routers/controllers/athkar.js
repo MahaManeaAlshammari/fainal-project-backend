@@ -25,7 +25,7 @@ const addathkar =  async (req , res)=>{
             const sav = await data.save()
             const thkr = await athkarModel.find({})
             // سويت سيف للداتا بعد ماجابه
-            res.status(200).json(sav)
+            res.status(200).json(thkr)
             // اذاكان صحيح يحفظه
         } catch (error) {
             res.status(403).json(error)
@@ -61,17 +61,13 @@ const getathkar = async (req , res)=>{
       console.log(id);
       const{description}= req.body;
       try {
-        const updateB = await athkarModel.findOneAndUpdate( {_id: id},
-       {description}, { new: true });
-
+        const updateB = await athkarModel.findOneAndUpdate( {_id: id},{description}, { new: true });
        console.log(updateB);
-
-        res.status(201).json(updateB);
+       const cour = await athkarModel.find({}).populate("user")
+       res.status(200).json(cour)
       } catch (error) {
         res.send({ message: error });
-
       }
-
         }
 
 ////////////////////////////////////// اللايك /////////////////////////////////////////////
