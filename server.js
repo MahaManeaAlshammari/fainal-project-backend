@@ -1,4 +1,6 @@
 const express = require("express");
+require('dotenv').config()
+
 const app = express();
 require("./db/db");
 app.use(express.json());
@@ -19,6 +21,8 @@ app.use(qoranRoute);
 
 
 ////////////////////
+console.log(process.env.PORT);
+
 const Port = 5000;
 app.listen(Port, () => {
   console.log("server run on 5000 port");
