@@ -23,7 +23,6 @@ app.use(qoranRoute);
 ////////////////////
 console.log(process.env.PORT);
 
-const Port = 5000;
 app.listen(process.env.PORT, () => {
   console.log("server run on 5000 port");
 });
